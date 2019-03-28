@@ -1,0 +1,25 @@
+{
+    "name": "aen233/iu-sdk",
+    "description": "iu-sdk for Laravel",
+    "keywords": ["laravel"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "aen233",
+            "email": "284767378@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=7",
+        "illuminate/support": "5.5.x|5.6.x|5.7.x|5.8.x"
+    },
+    "autoload": {
+        "psr-4": {
+            "Aen233\\IUSDK\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "minimum-stability": "dev"
+}
