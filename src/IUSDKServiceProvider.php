@@ -2,9 +2,9 @@
 
 namespace Aen233\IUSDK;
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\ServiceProvider;
 
-class IUSDKServiceProvider
+class IUSDKServiceProvider extends ServiceProvider
 {
     public function boot()
     {
