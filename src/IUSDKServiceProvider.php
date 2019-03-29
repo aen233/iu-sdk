@@ -37,10 +37,8 @@ class IUSDKServiceProvider extends ServiceProvider
     {
         /** @var \Illuminate\Foundation\Http\Kernel $kernel */
         $kernel = $this->app->make(Kernel::class);
-
-        $kernel->routeMiddleware = array_merge($kernel->routeMiddleware, self::IUSDK_ROUTE_MIDDLEWARE);
-        $kernel->middlewareGroups['web'] = array_merge($kernel->middlewareGroups['web'], self::IUSDK_MIDDLEWARE_GROUPS);
-        $kernel->middlewareGroups['api'] = array_merge($kernel->middlewareGroups['api'], self::IUSDK_MIDDLEWARE_GROUPS);
+        $kernel->pushMiddleware(Access::class);
+        $kernel->pushMiddleware(After::class);
 
         return $kernel;
     }
