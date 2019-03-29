@@ -21,7 +21,7 @@ class LogHandler
 
             $data = file_get_contents($file);
 
-            return view('log')
+            return view('iu-sdk.log')
                 ->with('modules', $module)
                 ->with('file', $file)
                 ->with('data', $data);

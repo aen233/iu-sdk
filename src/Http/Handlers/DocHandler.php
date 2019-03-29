@@ -30,7 +30,7 @@ class DocHandler
         $parseDown = new Parsedown();
         $html      = $parseDown->text(file_get_contents($docPath));
 
-        return view('doc')
+        return view('iu-sdk.doc')
             ->with('doc', $doc)
             ->with('module', $module)
             ->with('html', $html)
