@@ -95,12 +95,12 @@ function getFile($name,$doc) {
             <li><h1><a href="<?=url($docUrl)?>">文档首页</a></h1></li>
             <?php foreach ($config as $i => $a) : ?>
                 <li>
-                    <h1><a href="<?=url($docUrl . $a['path'])?>"><?=$a['name']?></a></h1>
+                    <h1><a href="<?=url($docUrl . $a['path'])?>"  onclick="return false"><?=$a['name']?></a></h1>
                     <?php if (!empty($a['children'])) : ?>
                         <ul>
                             <?php foreach ($a['children'] as $ii => $b) : ?>
                                 <li>
-                                    <h2><a href="<?=url($docUrl . $a['path'] . '-' . $b['path'])?>"><?=$b['name']?></a></h2>
+                                    <h2><a href="<?=url($docUrl . $a['path'] . '-' . $b['path'])?>"  onclick="return false"><?=$b['name']?></a></h2>
                                     <?php $files = getFile('', $doc); if (!empty($files)) : ?>
                                         <ul>
                                             <?php $files = getFile($a['path'].'/'.$b['path'], $doc);  foreach ($files as $file) : ?>

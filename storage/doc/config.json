@@ -1,0 +1,12 @@
+[
+    {
+        "path": "demo1",
+        "name": "大分类1",
+        "children": [
+            {
+                "path": "demo11",
+                "name": "小分类1"
+            }
+        ]
+    }
+]

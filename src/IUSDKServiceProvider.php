@@ -9,15 +9,6 @@ use Illuminate\Contracts\Http\Kernel;
 
 class IUSDKServiceProvider extends ServiceProvider
 {
-    const IUSDK_MIDDLEWARE_GROUPS = [
-        Access::class,
-        After::class
-    ];
-
-    const IUSDK_ROUTE_MIDDLEWARE = [
-        'access' => Access::class,
-        'after'  => After::class
-    ];
 
     public function boot()
     {
@@ -28,8 +19,9 @@ class IUSDKServiceProvider extends ServiceProvider
         $this->registerMiddle();
 
         $this->publishes([
-            __DIR__ . '/../resources/views/iu-sdk' => base_path('resources/views/iu-sdk'),  // 发布视图目录到resources 下
-            // __DIR__ . '/../config/routes.php'      => config_path('routes.php'), // 发布配置文件到 laravel 的config 下
+            __DIR__ . '/../storage/doc' => base_path('storage/doc'),  // 发布doc demo 到 laravel的 storage 下
+//            __DIR__ . '/../resources/views/iu-sdk' => base_path('resources/views/iu-sdk'),  // 发布视图目录到resources 下
+//            __DIR__ . '/../config/error_code.php'      => config_path('error_code.php'), // 发布配置文件到 laravel 的config 下
         ]);
     }
 

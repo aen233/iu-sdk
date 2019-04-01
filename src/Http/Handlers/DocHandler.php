@@ -13,15 +13,15 @@ class DocHandler
      *
      * @return array
      */
-    public function __invoke($module = 'module', $name = 'index')
+    public function __invoke($module = '', $name = '')
     {
         // 仅开发环境可以访问
         if (!app()->environment('local', 'dev')) {
             return ['version' => '0.0.1'];
         }
 
-        if (in_array($module, ['module', 'index'])) {
-            unset($module);
+        if (!in_array(Str::title($module), getModules())) {
+            $name   = $module;
             $doc    = storage_path('doc/');
             $docUrl = 'doc/';
         } else {
@@ -29,7 +29,7 @@ class DocHandler
             $docUrl = $module . '/doc/';
         }
 
-        if ($name === 'index') {
+        if (empty($name) || $name == 'index') {
             $docPath = $doc . 'readme.md';
         } else {
             $name    = urldecode($name);
@@ -43,7 +43,7 @@ class DocHandler
         $parseDown = new Parsedown();
         $html      = $parseDown->text(file_get_contents($docPath));
 
-        return view('iu-sdk.doc')
+        return view('iu-sdk::doc')
             ->with('doc', $doc)
             ->with('docUrl', $docUrl)
             ->with('html', $html)

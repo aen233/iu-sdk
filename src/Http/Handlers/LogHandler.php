@@ -13,7 +13,7 @@ class LogHandler
      *
      * @return array|string
      */
-    public function __invoke(Request $request, $module = 'module')
+    public function __invoke(Request $request, $module = '')
     {
         // 仅开发环境可以访问
         if (!app()->environment('local', 'dev')) {
@@ -22,11 +22,10 @@ class LogHandler
 
         $file = empty($request->get('file')) ? date('Y/m/d') . '.log' : $request->get('file');
 
-        if ($module === 'module') {
+        if (!in_array(Str::title($module), getModules())) {
             $file = storage_path('logs/' . $file);
         } else {
-            $module = Str::title($module);
-            $file   = base_path('modules/' . $module . '/Logs/' . $file);
+            $file = base_path('modules/' . Str::title($module) . '/Logs/' . $file);
         }
 
         if (!file_exists($file)) {
@@ -35,7 +34,7 @@ class LogHandler
 
         $data = file_get_contents($file);
 
-        return view('iu-sdk.log')
+        return view('iu-sdk::log')
             ->with('file', $file)
             ->with('data', $data);
     }
