@@ -13,20 +13,11 @@ class LogHandler
      *
      * @return array|string
      */
-    public function __invoke(Request $request, $module = '')
+    public function __invoke(Request $request)
     {
-        // 仅开发环境可以访问
-        if (!app()->environment('local', 'dev')) {
-            return ['version' => '0.0.1'];
-        }
-
         $file = empty($request->get('file')) ? date('Y/m/d') . '.log' : $request->get('file');
 
-        if (!in_array(Str::title($module), getModules())) {
-            $file = storage_path('logs/' . $file);
-        } else {
-            $file = base_path('modules/' . Str::title($module) . '/Logs/' . $file);
-        }
+        $file = storage_path('logs/' . $file);
 
         if (!file_exists($file)) {
             return '日志不存在';

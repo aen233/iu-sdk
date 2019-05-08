@@ -6,11 +6,13 @@
  * Time: 16:30
  */
 
-use Aen233\IUSDK\Http\Handlers\DocHandler;
-use Aen233\IUSDK\Http\Handlers\LogHandler;
 use Illuminate\Support\Facades\Route;
+use Aen233\IUSDK\Http\Middleware\Indev;
 
-Route::get('doc/{module?}/{name?}', ['uses' => DocHandler::class]);
-Route::get('{modules}/doc/{name?}', ['uses' => DocHandler::class]);
-Route::get('log/{module?}', ['uses' => LogHandler::class]);
-Route::get('{modules}/log', ['uses' => LogHandler::class]);
+Route::namespace('Aen233\IUSDK\Http\Handlers')->middleware(Indev::class)->group(function () {
+    Route::get('doc/{name?}', ['uses' => DocHandler::class]);
+    Route::get('log', ['uses' => LogHandler::class]);
+    Route::get('info', ['uses' => InfoHandler::class]);
+    Route::get('db', ['uses' => DBHandler::class]);
+    Route::get('redis', ['uses' => RedisHandler::class]);
+});

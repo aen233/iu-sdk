@@ -8,26 +8,14 @@ use Parsedown;
 class DocHandler
 {
     /**
-     * @param string $module
      * @param string $name
      *
      * @return array
      */
-    public function __invoke($module = '', $name = '')
+    public function __invoke($name = '')
     {
-        // 仅开发环境可以访问
-        if (!app()->environment('local', 'dev')) {
-            return ['version' => '0.0.1'];
-        }
-
-        if (!in_array(Str::title($module), getModules())) {
-            $name   = $module;
-            $doc    = storage_path('doc/');
-            $docUrl = 'doc/';
-        } else {
-            $doc    = base_path('modules/' . Str::title($module) . '/Doc/');
-            $docUrl = $module . '/doc/';
-        }
+        $doc    = storage_path('doc/');
+        $docUrl = 'doc/';
 
         if (empty($name) || $name == 'index') {
             $docPath = $doc . 'readme.md';

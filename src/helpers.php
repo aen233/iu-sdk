@@ -34,12 +34,7 @@ if (!function_exists('iuLog')) {
      */
     function iuLog($level, $desc = '', $data = [], $filename = '')
     {
-        $module    = Str::title(substr(request()->path(), 0, strpos(request()->path(), '/')));
-        $moduleArr = getModules();
-
-        $logPath = in_array($module, $moduleArr)
-            ? base_path('modules/') . $module . '/Logs/' . date('Y/m/')
-            : storage_path() . '/logs/' . date('Y/m/');
+        $logPath =  storage_path() . '/logs/' . date('Y/m/');
 
         if (!file_exists($logPath)) {
             mkdir($logPath, 0777, true);
@@ -69,21 +64,5 @@ if (!function_exists('iuLog')) {
         //            JSON_UNESCAPED_SLASHES（不转义反斜杠，对应的数字 64）
         //            JSON_UNESCAPED_UNICODE + JSON_UNESCAPED_SLASHES = 320
         file_put_contents($dir, $prefix . $desc . json_encode($data, 320) . PHP_EOL, FILE_APPEND);
-    }
-}
-
-if (!function_exists('getModules')) {
-    /**
-     * 获取已有的所有模块
-     *
-     * @return mixed
-     */
-    function getModules()
-    {
-        $moduleArr = Arr::where(scandir(base_path('modules')), function ($value) {
-            return (!Str::startsWith($value, '.')) && is_dir(base_path('modules/' . $value));
-        });
-
-        return $moduleArr;
     }
 }
